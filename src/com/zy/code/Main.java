@@ -1316,9 +1316,29 @@ public class Main {
         return res;
     }
 
+    //leetcode 480. 滑动窗口中位数
+    public double[] medianSlidingWindow(int[] nums, int k) {
+        int n = nums.length;
+        int cnt = n - k + 1;
+        double[] ans = new double[cnt];
+        int[] t = new int[k];
+        //滑动窗口右移
+        for (int l = 0, r = l + k - 1; r < n; l++, r++) {
+            //拿到窗口中的数组
+            for (int i = l; i <= r; i++) t[i - l] = nums[i];
+            Arrays.sort(t);
+            ans[l] = (t[k / 2] / 2.0) + (t[(k - 1) / 2] / 2.0);
+        }
+        return ans;
+
+    }
+
 
     //leetcode643 子数组最大平均数1
     public double findMaxAverage(int[] nums, int k) {
+        /*
+        * 1.拿到初始滑动窗口的sum，把这个当做最大值然后向右滑动找打最大的sum
+        * */
         int len = nums.length;
         int sum = 0;
         for (int i = 0; i<k; i++){
@@ -1333,22 +1353,58 @@ public class Main {
     }
 
     //leetcode 1208 尽可能使字符串相等
-    public static int equalSubstring(String s, String t, int maxCost) {
-        char[] c1 = s.toCharArray();
-        char[] c2 = t.toCharArray();
-        int res = 0;
-        for (int cur = 0; cur<c1.length; cur++){
-            int cost = maxCost;
-            int i = cur;
-            while (cost>=0 && i<c1.length){
-                cost -= Math.abs(c1[i] - c2[i]);
-                if (cost >= 0){
-                    i++;
-                }
-            }
-            res = Math.max(res,i-cur);
+    public int equalSubstring(String s, String t, int maxCost) {
+        /*
+        * 1.获取s，t第i个字符的差的一个数组
+        * 2.在循环遍历出最大值，小于maxCost右边界就扩大，否则左边界缩小
+        * */
+        int[] diff = new int[s.length()];
+        for (int i = 0; i<s.length(); i++){
+            diff[i] = Math.abs(s.charAt(i) - t.charAt(i));
         }
-        return res;
+        int l = 0,r = 0;
+        int max = 0;
+        int sum = 0;
+        while (r<s.length()){
+            sum += diff[r];
+            while (sum>maxCost){
+                sum -= diff[l];
+                l++;
+            }
+            max = Math.max(max,r-l+1);
+            r++;
+        }
+        return max;
+    }
+
+
+    //leetcode 1423. 可获得的最大点数
+    public int maxScore(int[] cardPoints, int k) {
+        /*1.错误理解题意：题意是固定一边，以下为不固定的最大值,递归获取左右临界值的最大值
+        if (k<=0){
+            return 0;
+        }
+        int len = cardPoints.length;
+        int sum = 0;
+        sum = Math.max(cardPoints[k-1],cardPoints[len-k]);
+
+        sum += maxScore(cardPoints,k-1);
+        return sum;
+        */
+        //2.由于剩余卡牌是连续的，使用一个固定长度为 len-k 的滑动窗口对数组 cardPoints 进行遍历，
+        // 求出滑动窗口最小值，然后用所有卡牌的点数之和减去该最小值，即得到了拿走卡牌点数之和的最大值。
+        int len = cardPoints.length;
+        int win = len-k;
+        int sum = 0;
+        for (int i = 0; i<win; i++){
+            sum += cardPoints[i];
+        }
+        int min = sum;
+        for (int i = win;i<len; i++){
+            sum += cardPoints[i] - cardPoints[i-win];
+            min = Math.min(min,sum);
+        }
+        return Arrays.stream(cardPoints).sum()-min;
     }
 
 
@@ -2125,7 +2181,7 @@ public class Main {
     public static void main(String[] args) {
         String a = "krrgw";
         String b = "zjxss";
-        equalSubstring(a,b,19);
+//        equalSubstring(a,b,19);
 //        Scanner in = new Scanner(System.in);
 //
 //        int n = in.nextInt();
