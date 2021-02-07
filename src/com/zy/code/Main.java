@@ -1407,6 +1407,24 @@ public class Main {
         return Arrays.stream(cardPoints).sum()-min;
     }
 
+    //leetcode665. 非递减数列
+    public static boolean checkPossibility(int[] nums) {
+        //-1 4 2 3
+        //3 4 2 3
+        int changeNum = 0;
+        for (int i = 1; i<nums.length; i++){
+            if (nums[i] < nums[i-1]){
+                //如果nums[i] >=nums[i-2] 也就是第一个例子的  2>=-1 就说明他们中间的4太大了，应该处理4而不是2
+                if (i == 1 || nums[i]>=nums[i-2]){
+                    nums[i-1] = nums[i];
+                }else {
+                    nums[i] = nums[i-1];
+                }
+                changeNum++;
+            }
+        }
+        return changeNum<=1;
+    }
 
     //leetcode 1261 受污染的二叉树
 //    private TreeNode root;
@@ -2179,6 +2197,8 @@ public class Main {
     }
 
     public static void main(String[] args) {
+        int c[] = {3 ,4 ,2 ,3};
+        checkPossibility(c);
         String a = "krrgw";
         String b = "zjxss";
 //        equalSubstring(a,b,19);
