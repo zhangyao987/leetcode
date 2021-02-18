@@ -873,6 +873,25 @@ public class Main {
 
     }
 
+//  leetcode48. 旋转图像
+    public void rotate(int[][] matrix) {
+        int n = matrix.length;
+        //先上下翻转，然后再对角线翻转
+        for (int i = 0; i<n/2; i++){
+            int[] cur = matrix[i];
+            matrix[i] = matrix[n-i-1];
+            matrix[n-i-1] = cur;
+        }
+        for (int i = 0;i<n; i++){
+            for (int j = i; j<n; j++){
+                int cur = matrix[i][j];
+                matrix[i][j] = matrix[j][i];
+                matrix[j][i] = cur;
+            }
+        }
+    }
+
+
     //leetcode77组合
     List<List<Integer>> list77 = new ArrayList<>();
     public List<List<Integer>> combine(int n, int k) {
