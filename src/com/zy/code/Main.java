@@ -606,10 +606,34 @@ public class Main {
     //leetcode22 括号生成 mid
     public List<String> generateParenthesis(int n) {
         List<String> res = new ArrayList<>();
-        generateParenthesis(n,res,new String(),0,0);
+        generateParenthesis1(n,res,new String(),0,0);
+        System.out.println(res);
         return res;
 
     }
+
+    private void generateParenthesis1(int n, List<String> res,String s, int open,int close){
+        if (s.length() == 2*n){
+            res.add(s);
+            return;
+        }else {
+            if (open<n){
+                s += "(";
+                generateParenthesis1(n,res,s,open+1,close);
+                s = s.substring(0,s.length()-1);
+            }
+            if (close<open){
+                s += ")";
+                generateParenthesis1(n,res,s,open,close+1);
+                s = s.substring(0,s.length()-1);
+            }
+
+        }
+
+
+
+    }
+
     private void generateParenthesis(int n, List<String> res, String s,int open,int close){
         if (s.length() == 2*n) {
             res.add(s);
@@ -1247,6 +1271,21 @@ public class Main {
         return result;
     }
 
+    //leetcode 198. 打家劫舍
+    public int rob(int[] nums) {
+        if (nums.length == 0){
+            return 0;
+        }
+        int dp[] = new int[nums.length+1];
+        dp[0] = 0;
+        dp[1] = nums[0];
+        for (int i = 2; i<=nums.length; i++){
+            dp[i] = Math.max(dp[i-1],dp[i-2]+nums[i-1]);
+        }
+        return dp[nums.length];
+    }
+
+
     //leetcode230二叉搜索树中第K小的元素 mid
     public int kthSmallest(TreeNode root, int k) {
         List<Integer> list = kthSmallest(root);
@@ -1272,6 +1311,26 @@ public class Main {
 
     }
 
+    //leetcode 238. 除自身以外数组的乘积
+    public int[] productExceptSelf(int[] nums) {
+        int[] left = new int[nums.length];
+        int[] right = new int[nums.length];
+        int[] res = new int[nums.length];
+
+        left[0] = 1;
+        right[nums.length-1] = 1;
+
+        for (int i = 1; i<nums.length;i++){
+            left[i] = left[i-1] * nums[i-1];
+        }
+        for(int i = nums.length-2; i>=0; i--){
+            right[i] = right[i+1] * nums[i+1];
+        }
+        for (int i = 0; i<nums.length; i++){
+            res[i] = left[i]*right[i];
+        }
+        return res;
+    }
 
 
     //leetcode 289生命游戏mid
@@ -2217,7 +2276,9 @@ public class Main {
 
     public static void main(String[] args) {
         int c[] = {3 ,4 ,2 ,3};
-        checkPossibility(c);
+        Main main = new Main();
+        main.generateParenthesis(2);
+//        checkPossibility(c);
         String a = "krrgw";
         String b = "zjxss";
 //        equalSubstring(a,b,19);
