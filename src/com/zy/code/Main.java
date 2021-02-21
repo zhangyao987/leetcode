@@ -855,8 +855,23 @@ public class Main {
         if (candidates == null || candidates.length == 0 || target < 0) {
             return list39;
         }
-        process(0,candidates,target,list);
+        combinationSum(0,candidates,target,list);
         return list39;
+    }
+
+    private void combinationSum(int start, int[] candidates,int target, List<Integer> list){
+        if (target<0){
+            return;
+        }
+        if (target == 0){
+            list39.add(new ArrayList<>(list));
+        }else {
+            for (int i = start; i<candidates.length; i++){
+                list.add(candidates[i]);
+                combinationSum(i,candidates,target-candidates[i],list);
+                list.remove(list.size()-1);
+            }
+        }
     }
 
     private void process(int start , int[] candidates, int target, List<Integer> list){
@@ -966,6 +981,24 @@ public class Main {
         list94.add(root.val);
         inorderTraversal(root.right);
         return list94;
+    }
+
+
+    //leetcode 114. 二叉树展开为链表
+    public void flatten(TreeNode root) {
+        while(root != null){
+            if (root.left != null){
+                TreeNode pre = root.left;
+                while (pre.right != null){
+                    pre = pre.right;
+                }
+                pre.right = root.right;
+                root.right = root.left;
+                root.left = null;
+            }else {
+                root = root.right;
+            }
+        }
     }
 
     //leetcode118杨辉三角 easy
@@ -1359,6 +1392,17 @@ public class Main {
             }
         }
         return board[i][j] == 1 ? (count == 3 || count == 4 ? 1 : -1) : (count == 3 ? -2 : 0);
+    }
+
+
+    //leetcode 338. 比特位计数
+    public int[] countBits(int num) {
+        int[] db = new int[num+1];
+        db[0] = 0;
+        for (int i = 1; i<=num; i++){
+            db[i] =db[i/2] + (i&1);
+        }
+        return db;
     }
 
     //leetcode392
@@ -2008,7 +2052,7 @@ public class Main {
         return Integer.valueOf(s1.peek());
     }
 
-    //hanoi
+    //hanoi 汉诺塔
     public void hanoi(int n, char a, char b, char c) {
         if (n == 1) {
             System.out.println("盘"+n+"由 "+a+" 移动到: "+c);
@@ -2277,7 +2321,8 @@ public class Main {
     public static void main(String[] args) {
         int c[] = {3 ,4 ,2 ,3};
         Main main = new Main();
-        main.generateParenthesis(2);
+//        main.hanoi(4,'a','b','c');
+        System.out.println(2&1);
 //        checkPossibility(c);
         String a = "krrgw";
         String b = "zjxss";
