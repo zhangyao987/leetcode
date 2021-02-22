@@ -930,6 +930,27 @@ public class Main {
         }
     }
 
+    //leetcode64. 最小路径和
+    public int minPathSum(int[][] grid) {
+        int m = grid.length;
+        int n = grid[0].length;
+        int[][] db = new int[m][n];
+        for (int i = 0; i<m; i++){
+            for (int j = 0; j<n; j++){
+                if (i ==0 && j == 0){
+                    db[i][j] = grid[i][j];
+                }else if (i == 0){
+                    db[i][j] = db[i][j-1] + grid[i][j];
+                }else if (j ==0){
+                    db[i][j] = db[i-1][j] + grid[i][j];
+                }else {
+                    db[i][j] = Math.min(db[i-1][j],db[i][j-1]) + grid[i][j];
+                }
+            }
+        }
+        return db[m-1][n-1];
+    }
+
 
     //leetcode77组合
     List<List<Integer>> list77 = new ArrayList<>();
@@ -983,6 +1004,21 @@ public class Main {
         return list94;
     }
 
+
+    //leetcode121. 买卖股票的最佳时机
+    public int maxProfit1(int[] prices) {
+        int min = Integer.MAX_VALUE;
+        int res = 0;
+        for (int i = 0; i<prices.length; i++){
+           if (prices[i] < min){
+               min = prices[i];
+           }else if (prices[i] - min > res){
+               res = prices[i]-min;
+           }
+        }
+        return res;
+
+    }
 
     //leetcode 114. 二叉树展开为链表
     public void flatten(TreeNode root) {
@@ -2319,9 +2355,9 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        int c[] = {3 ,4 ,2 ,3};
+        int c[] = {7,1,5,3,6,4};
         Main main = new Main();
-//        main.hanoi(4,'a','b','c');
+        main.maxProfit1(c);
         System.out.println(2&1);
 //        checkPossibility(c);
         String a = "krrgw";
