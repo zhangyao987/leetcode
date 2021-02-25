@@ -603,6 +603,28 @@ public class Main {
         return resList;
     }
 
+    //leetcode20. 有效的括号
+    public boolean isValid(String s) {
+        if (s.length()<2) return false;
+        Stack<Character> stack = new Stack<>();
+        char[] c = s.toCharArray();
+        for (int i=0;i<s.length();i++) {
+            if (c[i] == '(') {
+                stack.push(')');
+            } else if (c[i] == '[') {
+                stack.push(']');
+            } else if (c[i] == '{'){
+                stack.push('}');
+            } else if (stack.isEmpty() || c[i] != stack.pop()) {
+                return false;
+            }
+        }
+        if (!stack.isEmpty()){
+            return false;
+        }
+        return true;
+    }
+
     //leetcode22 括号生成 mid
     public List<String> generateParenthesis(int n) {
         List<String> res = new ArrayList<>();
@@ -800,6 +822,32 @@ public class Main {
         }
         return res;
     }
+
+    //leetcode56. 合并区间
+    public int[][] merge(int[][] intervals) {
+        int len = intervals.length;
+        if (len < 2) {
+            return intervals;
+        }
+
+        // 按照起点排序
+        Arrays.sort(intervals, Comparator.comparingInt(o -> o[0]));
+
+        List<int[]> res = new ArrayList<>();
+        res.add(intervals[0]);
+        for (int i =1; i<len; i++){
+            int[] resBack = res.get(res.size()-1);
+            int[] cur = intervals[i];
+            //先考虑连个集合能不能接上，接不上热水中新增，接的上更新有边界
+            if (resBack[1] < cur[0] ){
+                res.add(cur);
+            }else {
+                resBack[1] = Math.max(resBack[1],cur[1]);
+            }
+        }
+        return res.toArray(new int[res.size()][]);
+    }
+
 
     //leetcode62不同路径
     public int uniquePaths(int m, int n) {
@@ -1386,6 +1434,12 @@ public class Main {
         return dp[nums.length];
     }
 
+    //leetcode215. 数组中的第K个最大元素
+    public int findKthLargest(int[] nums, int k) {
+        int len = nums.length;
+        Arrays.sort(nums);
+        return nums[len - k];
+    }
 
     //leetcode230二叉搜索树中第K小的元素 mid
     public int kthSmallest(TreeNode root, int k) {
