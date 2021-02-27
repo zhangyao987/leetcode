@@ -1052,6 +1052,27 @@ public class Main {
         return list94;
     }
 
+    //leetcode105. 从前序与中序遍历序列构造二叉树
+    public TreeNode buildTree(int[] preorder, int[] inorder) {
+        int preLength = preorder.length;
+        int inLength = inorder.length;
+        return buildTree(preorder,0,preLength-1,inorder,0,inLength-1);
+    }
+
+    private TreeNode buildTree(int[] preorder,int preLeft,int preRight,int[] inorder, int inLeft, int inRight){
+        if (preLeft > preRight || inLeft > inRight){
+            return null;
+        }
+
+        TreeNode root = new TreeNode(preorder[preLeft]);
+        int index = inLeft;
+         while (index <= inRight && inorder[index] != root.val){
+             index++;
+         }
+         root.left = buildTree(preorder,preLeft+1,index-inLeft+preLeft,inorder,inLeft,index-1);
+         root.right = buildTree(preorder,index-inLeft+preLeft+1,preRight,inorder,index+1,inRight);
+         return root;
+    }
 
     //leetcode121. 买卖股票的最佳时机
     public int maxProfit1(int[] prices) {
