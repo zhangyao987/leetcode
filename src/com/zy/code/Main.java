@@ -1074,6 +1074,31 @@ public class Main {
          return root;
     }
 
+    //leetcode 106. 从中序与后序遍历序列构造二叉树
+    public TreeNode buildTree106(int[] inorder, int[] postorder) {
+        int inlength = inorder.length;
+        int postlength = postorder.length;
+        return buliderTree106(inorder,0,inlength-1,postorder,0,postlength-1);
+    }
+
+    private TreeNode buliderTree106(int[] inorder,int inleft,int inright,int[] postorder,int postleft,int postright){
+        if (inleft > inright || postleft > postright){
+            return null;
+        }
+
+        int rootval = postorder[postright];
+        TreeNode root = new TreeNode(rootval);
+        int index = inleft;
+        while (index <inright && inorder[index] != root.val){
+            index++;
+        }
+
+        root.left = buliderTree106(inorder,inleft,index-1,postorder,postleft,index-inleft+postleft-1);
+        root.right = buliderTree106(inorder,index+1,inright,postorder,index-inleft+postleft,postright-1);
+        return root;
+    }
+
+
     //leetcode121. 买卖股票的最佳时机
     public int maxProfit1(int[] prices) {
         int min = Integer.MAX_VALUE;
@@ -1180,6 +1205,23 @@ public class Main {
         return res;
     }
 
+    //leetcode189. 旋转数组
+    public void rotate(int[] nums, int k) {
+        k %= nums.length;
+        int last = nums.length-1;
+        rotate(nums,0,last);
+        rotate(nums,0,k-1);
+        rotate(nums,k,last);
+    }
+    private void rotate(int[] nums,int start, int end){
+        while (start<end){
+            int temp = nums[start];
+            nums[start] = nums[end];
+            nums[end] = temp;
+            start++;
+            end--;
+        }
+    }
 
     //leetcode239 滑动窗口的最大值 heard
     public int[] maxSlidingWindow(int[] nums, int k) {
