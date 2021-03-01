@@ -1258,6 +1258,39 @@ public class Main {
         chars[b] = cur;
     }
 
+    //leetcode347. 前 K 个高频元素
+    public int[] topKFrequent(int[] nums, int k) {
+        Map<Integer,Integer> map = new HashMap<>();
+        for (int i = 0; i<nums.length;i++){
+            if (map.containsKey(nums[i])){
+                map.put(nums[i],map.get(nums[i]) + 1);
+            }else {
+                map.put(nums[i],1);
+            }
+        }
+
+        List<Integer>[] shuzu = new List[nums.length+1];
+        for (int key : map.keySet()){
+            int count = map.get(key);
+            if (shuzu[count] == null){
+                shuzu[count] = new ArrayList<>();
+            }
+            shuzu[count].add(key);
+        }
+        int[] res = new int[k];
+        List<Integer> res1 = new ArrayList<>();
+        for (int i = shuzu.length-1; i>=0; i--){
+            if (shuzu[i] == null){
+                continue;
+            }else {
+                res1.addAll(shuzu[i]);
+            }
+        }
+        for (int i = 0;i<k;i++){
+            res[i] = res1.get(i);
+        }
+        return res;
+    }
 
 
     //leetcode 455
@@ -2519,10 +2552,9 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        int c[] = {7,1,5,3,6,4};
+        int c[] = {1,1,1,2,2,3};
         Main main = new Main();
-        main.maxProfit1(c);
-        System.out.println(2&1);
+        main.topKFrequent(c,2);
 //        checkPossibility(c);
         String a = "krrgw";
         String b = "zjxss";
