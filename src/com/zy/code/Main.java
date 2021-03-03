@@ -1585,6 +1585,21 @@ public class Main {
         return list230;
     }
 
+    //leetcode236. 二叉树的最近公共祖先
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        //只会存在两种情况,在两边，在一边
+        /*
+        *   root     p
+        *   /  \    /
+        *  p    q  q
+        * */
+        if (root == p || root == q || root == null) return root;
+        TreeNode left = lowestCommonAncestor(root.left,p,q);
+        TreeNode right = lowestCommonAncestor(root.right, p, q);
+        if (left == null) return right;
+        if (right == null) return left;
+        return root;
+    }
 
     //leetcode237删除链表下一个节点
     public void deleteNode(ListNode node) {
