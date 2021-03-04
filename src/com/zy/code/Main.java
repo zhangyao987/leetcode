@@ -1667,6 +1667,23 @@ public class Main {
         return board[i][j] == 1 ? (count == 3 || count == 4 ? 1 : -1) : (count == 3 ? -2 : 0);
     }
 
+    //leetcode300. 最长递增子序列
+    public int lengthOfLIS(int[] nums) {
+        if (nums.length == 0) return 0;
+        int[] dp = new int[nums.length];
+        dp[0] = 1;
+        int res = 1;
+        for (int i = 1; i<nums.length; i++){
+            dp[i] = 1;
+            for (int j = 0; j<i; j++){
+                if (nums[i]> nums[j]){
+                    dp[i] = Math.max(dp[i],dp[j]+1);
+                }
+            }
+            res = Math.max(res,dp[i]);
+        }
+        return res;
+    }
 
     //leetcode 338. 比特位计数
     public int[] countBits(int num) {
@@ -2607,9 +2624,9 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        int c[] = {1,1,1,2,2,3};
+        int c[] = {0,1,0,3,2,3};
         Main main = new Main();
-        main.topKFrequent(c,2);
+        main.lengthOfLIS(c);
 //        checkPossibility(c);
         String a = "krrgw";
         String b = "zjxss";
