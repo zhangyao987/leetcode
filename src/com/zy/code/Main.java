@@ -1194,6 +1194,14 @@ public class Main {
 
     }
 
+    //leetcode136. 只出现一次的数字
+    public int singleNumber(int[] nums) {
+        int res = nums[0];
+        for (int i = 1; i<nums.length; i++){
+            res = res ^ nums[i];
+        }
+        return res;
+    }
 
     //leetcode 171 excel 表序列号  easy
     public int titleToNumber(String s) {
