@@ -1524,6 +1524,24 @@ public class Main {
         return result;
     }
 
+    //leetcode142. 环形链表 II
+    public ListNode detectCycle(ListNode head) {
+        ListNode fast = head;
+        ListNode slow = head;
+        while (true) {
+            if (fast == null || fast.next == null) return null;
+            fast = fast.next.next;
+            slow = slow.next;
+            if (fast == slow) break;
+        }
+        fast = head;
+        while (slow != fast){
+            slow = slow.next;
+            fast = fast.next;
+        }
+        return fast;
+    }
+
     //leetcode148. 排序链表
     public ListNode sortList(ListNode head) {
         //归并思想，fast slow找到中间的node 可以先想象成只有两个node的链表，比较left和right值得大小，然后重新构建一个链表
