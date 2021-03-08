@@ -1052,6 +1052,26 @@ public class Main {
         return list94;
     }
 
+    //leetcode103. 二叉树的锯齿形层序遍历
+    List<List<Integer>> list103 = new LinkedList<>();
+    public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
+        zigzagLevelOrder(root,0);
+        return list103;
+    }
+
+    private void zigzagLevelOrder(TreeNode root,int level){
+        if (root == null) return;
+        if (list103.size() <= level) list103.add(new LinkedList<>());
+        List<Integer> curlist = list103.get(level);
+        if (level % 2 ==0){
+            curlist.add(root.val);
+        }else {
+            curlist.add(0,root.val);
+        }
+        zigzagLevelOrder(root.left,level+1);
+        zigzagLevelOrder(root.right,level+1);
+    }
+
     //leetcode105. 从前序与中序遍历序列构造二叉树
     public TreeNode buildTree(int[] preorder, int[] inorder) {
         int preLength = preorder.length;
@@ -2058,20 +2078,24 @@ public class Main {
     }
 
     //快速排序
-    public static void quickSort(int[] arr,int low,int high){
-        int i,j,temp,t;
-        if(low>high){
+    public static void quickSort(int[] arr, int low, int high) {
+        int i, j, temp, t;
+        if (low > high) {
             return;
         }
-        i=low;//#左边哨兵的索引
-                j=high;//#右边哨兵的索引
-                //temp就是基准位
-                temp = arr[low];//#以最左边为  基准位
-        while (i<j) {
-            while (temp<=arr[j]&&i<j) { j--; }
-            while (temp>=arr[i]&&i<j) { i++; }
+        i = low;//#左边哨兵的索引
+        j = high;//#右边哨兵的索引
+        //temp就是基准位
+        temp = arr[low];//#以最左边为  基准位
+        while (i < j) {
+            while (temp <= arr[j] && i < j) {
+                j--;
+            }
+            while (temp >= arr[i] && i < j) {
+                i++;
+            }
             //如果满足条件则交换
-            if (i<j) {
+            if (i < j) {
                 int z = arr[i];
                 int y = arr[j];
                 arr[i] = y;
@@ -2088,9 +2112,9 @@ public class Main {
 //#也就是说(i或j所在索引的数)已经确定排序位置， 所以就不用再排序了，
 //# 只要用相同的方法 分别处理  左右数组就可以了
         //递归调用左半数组
-        quickSort(arr, low, j-1);
+        quickSort(arr, low, j - 1);
         //递归调用右半数组
-        quickSort(arr, j+1, high);
+        quickSort(arr, j + 1, high);
     }
 
 
