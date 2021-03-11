@@ -558,6 +558,37 @@ public class Main {
         return res;
     }
 
+    //leetcode17. 电话号码的字母组合
+    public List<String> letterCombinations(String digits) {
+        List<String> res = new ArrayList<>();
+        if(digits.length() == 0) return res;
+        Map<Character, String> phoneMap = new HashMap<Character, String>() {{
+            put('2', "abc");
+            put('3', "def");
+            put('4', "ghi");
+            put('5', "jkl");
+            put('6', "mno");
+            put('7', "pqrs");
+            put('8', "tuv");
+            put('9', "wxyz");
+        }};
+
+        letterCombinations(digits,new StringBuilder(),0,phoneMap,res);
+        return res;
+    }
+    private void letterCombinations(String digits,StringBuilder sb, int index,Map<Character, String> phoneMap,List<String> res){
+        if (sb.length() == digits.length()){
+            res.add(sb.toString());
+            return;
+        }
+        String s = phoneMap.get(digits.charAt(index));
+        for (int i = 0; i<s.length(); i++){
+            sb.append(s.charAt(i));
+            letterCombinations(digits,sb,index+1,phoneMap,res);
+            sb.deleteCharAt(index);
+        }
+    }
+
 
     //leetcode18
     public List<List<Integer>> fourSum(int[] nums, int target) {
@@ -2744,7 +2775,7 @@ public class Main {
     public static void main(String[] args) {
         int c[] = {2};
         Main main = new Main();
-        main.coinChange(c,3);
+        main.letterCombinations("23");
 //        checkPossibility(c);
         String a = "krrgw";
         String b = "zjxss";
