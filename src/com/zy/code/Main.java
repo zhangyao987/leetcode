@@ -1107,6 +1107,7 @@ public class Main {
     public TreeNode buildTree(int[] preorder, int[] inorder) {
         int preLength = preorder.length;
         int inLength = inorder.length;
+        //注意length-1越界问题
         return buildTree(preorder,0,preLength-1,inorder,0,inLength-1);
     }
 
@@ -1262,6 +1263,16 @@ public class Main {
             res = res * 26 + nums;
         }
         return res;
+    }
+
+    //leetcode172. 阶乘后的零
+    public int trailingZeroes(int n) {
+        int count = 0;
+        while (n>0){
+            count += n/5;
+            n = n/5;
+        }
+        return count;
     }
 
     //leetcode189. 旋转数组
