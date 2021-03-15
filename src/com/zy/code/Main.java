@@ -1801,6 +1801,29 @@ public class Main {
         return true;
     }
 
+    //leetcode403. 青蛙过河
+    public boolean canCross(int[] stones) {
+        int len = stones.length;
+        if (stones[1]!=1){
+            return false;
+        }
+        boolean[][] dp = new boolean[len][len+1];
+        dp[0][0] = true;
+        for (int i = 1; i<len;i++){
+            for (int j = 0; j<i;j++){
+                int k = stones[i] - stones[j];
+                //j跳到i 步数k不会超过i或者j+1
+                if (k<=i){
+                    dp[i][k] = dp[j][k-1] || dp[j][k] || dp[j][k+1];
+                    if (i == len-1 && dp[i][k]){
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+
+    }
 
     //leetcode617合并二叉树
     public TreeNode mergeTrees(TreeNode t1, TreeNode t2) {
