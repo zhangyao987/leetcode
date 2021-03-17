@@ -1604,6 +1604,50 @@ public class Main {
         return fast;
     }
 
+    //leetcode143. 重排链表
+    public void reorderList(ListNode head) {
+        if (head == null || head.next == null || head.next.next == null) {
+            return;
+        }
+
+        ListNode fast = head;
+        ListNode slow = head;
+        while (fast.next != null && fast.next.next != null){
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        ListNode mid = slow.next;
+        slow.next = null;
+        ListNode newMid = reverseList143(mid);
+        while (newMid != null){
+            ListNode cur = newMid.next;
+            newMid.next = head.next;
+            head.next = newMid;
+            head = newMid.next;
+            newMid = cur;
+        }
+    }
+    private ListNode reverseList143(ListNode head){
+        if (head == null) {
+            return null;
+        }
+        ListNode newHead = null;
+        ListNode pre = null;
+        ListNode cur = head;
+        ListNode next = null;
+        while (cur != null){
+            if (cur.next == null){
+                newHead = cur;
+            }
+            next = cur.next;
+            cur.next = pre;
+            pre = cur;
+            cur = next;
+        }
+        return newHead;
+    }
+
+
     //leetcode148. 排序链表
     public ListNode sortList(ListNode head) {
         //归并思想，fast slow找到中间的node 可以先想象成只有两个node的链表，比较left和right值得大小，然后重新构建一个链表
