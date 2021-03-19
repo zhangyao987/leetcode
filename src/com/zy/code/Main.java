@@ -854,6 +854,37 @@ public class Main {
         return res;
     }
 
+    //leetcode54. 螺旋矩阵
+    public List<Integer> spiralOrder(int[][] matrix) {
+        List<Integer> res = new LinkedList<>();
+        int zuo = 0,shang = 0;
+        int you = matrix[0].length;
+        int xia = matrix.length;
+        while (zuo<you && shang<xia){
+            for (int i = zuo;i<you;i++){
+                res.add(matrix[shang][i]);
+            }
+            for (int i = shang+1;i<xia;i++){
+                res.add(matrix[i][you-1]);
+            }
+            if (shang!=(xia-1)){
+                for (int i = you-2;i>=zuo;i--){
+                    res.add(matrix[xia-1][i]);
+                }
+            }
+            if (zuo!=(you-1)){
+                for (int i = xia-2;i>shang;i--){
+                    res.add(matrix[i][zuo]);
+                }
+            }
+            zuo++;
+            you--;
+            shang++;
+            xia--;
+        }
+        return res;
+    }
+
     //leetcode56. 合并区间
     public int[][] merge(int[][] intervals) {
         int len = intervals.length;
@@ -2851,9 +2882,9 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        int c[] = {2};
+        int c[][] = {{1,2,3,4},{5,6,7,8},{9,10,11,12}};
         Main main = new Main();
-        main.letterCombinations("23");
+        main.spiralOrder(c);
 //        checkPossibility(c);
         String a = "krrgw";
         String b = "zjxss";
