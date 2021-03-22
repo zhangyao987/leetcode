@@ -2046,6 +2046,20 @@ public class Main {
         return changeNum<=1;
     }
 
+    //leetcode714. 买卖股票的最佳时机含手续费
+    public int maxProfitFee(int[] prices, int fee) {
+        int length = prices.length;
+        //第i天最大盈利，手里有无股票，初始有股票的话就是负数
+        int[][] dp = new int[length][2];
+        dp[0][0] = 0;
+        dp[0][1] = -prices[0];
+        for (int i = 1;i<length;i++){
+           dp[i][0] = Math.max(dp[i-1][0],dp[i-1][1]+prices[i]-fee);
+           dp[i][1] = Math.max(dp[i-1][1],dp[i-1][0]-prices[i]);
+        }
+        return dp[length-1][0];
+    }
+
     //leetcode 1261 受污染的二叉树
 //    private TreeNode root;
 //    public FindElements(TreeNode root) {
@@ -2883,8 +2897,9 @@ public class Main {
 
     public static void main(String[] args) {
         int c[][] = {{1,2,3,4},{5,6,7,8},{9,10,11,12}};
+        int[] cur = {1,3,2,8,4,9};
         Main main = new Main();
-        main.spiralOrder(c);
+        main.maxProfitFee(cur,2);
 //        checkPossibility(c);
         String a = "krrgw";
         String b = "zjxss";
