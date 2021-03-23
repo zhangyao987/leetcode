@@ -1900,6 +1900,26 @@ public class Main {
 
     }
 
+    //leetcode523. 连续的子数组和
+    public boolean checkSubarraySum(int[] nums, int k) {
+        int[] dp = new int[nums.length+1];
+        dp[0] = 0;
+        for (int i = 0; i<nums.length;i++){
+            dp[i+1] = dp[i]+nums[i];
+        }
+
+        for (int left = 0; left<nums.length-1;left++){
+            for (int right = left+1; right<nums.length;right++){
+                int sum = dp[right+1] - dp[left];
+                if (sum == k || (k != 0 && sum % k == 0)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+
     //leetcode617合并二叉树
     public TreeNode mergeTrees(TreeNode t1, TreeNode t2) {
         TreeNode res = new TreeNode(0);
