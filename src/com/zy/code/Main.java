@@ -1918,6 +1918,24 @@ public class Main {
         }
         return false;
     }
+    //leetcode 523前缀和+map实现方式
+    public boolean checkSubarraySum1(int[] nums, int k) {
+        Map<Integer,Integer> map = new HashMap<>();
+        map.put(0,-1);
+        int psum = 0;
+        for (int i = 0; i<nums.length;i++){
+            psum += nums[i];
+            int key = k==0? psum:psum%k;
+            if (map.containsKey(key)){
+                if (i-map.get(key)>=2){
+                    return true;
+                }
+                continue;
+            }
+            map.put(key,i);
+        }
+        return false;
+    }
 
 
     //leetcode617合并二叉树
@@ -2127,6 +2145,22 @@ public class Main {
         return cur;
     }
 
+    //leetcode974. 和可被 K 整除的子数组
+    public int subarraysDivByK(int[] A, int K) {
+        int count = 0;
+        int cur = 0;
+        Map<Integer,Integer> map = new HashMap<>();
+        map.put(0,1);
+        for (int value : A) {
+            cur += value;
+            int key = (cur % K + K) % K;
+            if (map.containsKey(key)) {
+                count += map.get(key);
+            }
+            map.put(key, map.getOrDefault(key, 0) + 1);
+        }
+        return count;
+    }
 
     //leetcode最长不重复子串
     public int fff(){
