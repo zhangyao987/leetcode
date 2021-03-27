@@ -1,6 +1,7 @@
 package com.zy.code;
 
 
+import javax.sql.rowset.FilteredRowSet;
 import java.io.*;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -1723,6 +1724,32 @@ public class Main {
             dp[i] = Math.max(dp[i-1],dp[i-2]+nums[i-1]);
         }
         return dp[nums.length];
+    }
+
+    //leetcode213. 打家劫舍 II
+    public int rob2(int[] nums) {
+        if (nums.length == 1){
+            return nums[0];
+        }
+        if (nums.length == 2){
+            return Math.max(nums[0],nums[1]);
+        }
+        //1.因为是环形，第一家和最后一家不能同时打劫 2.不打劫最后一家(不用管第一家是否打劫)和不打劫第一家 取个最大值就好了
+        int[] robstart = Arrays.copyOfRange(nums,0,nums.length-1);
+        int[] robend = Arrays.copyOfRange(nums, 1, nums.length);
+        return Math.max(rob22(robstart),rob22(robend));
+    }
+    private int rob22(int[] nums){
+        if (nums.length == 0){
+            return 0;
+        }
+        int[] dp = new int[nums.length];
+        dp[0] = nums[0];
+        dp[1] = Math.max(nums[0],nums[1]);
+        for (int i = 2;i<nums.length;i++){
+            dp[i] = Math.max(dp[i-1],dp[i-2]+nums[i]);
+        }
+        return dp[nums.length-1];
     }
 
     //leetcode215. 数组中的第K个最大元素
