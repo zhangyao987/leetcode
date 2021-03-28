@@ -1882,6 +1882,37 @@ public class Main {
         return dp[amount] > amount ? -1 : dp[amount];
     }
 
+    //leetcode337. 打家劫舍 III
+    public int rob(TreeNode root) {
+        if (root == null){
+            return 0;
+        }
+        int mid = root.val;
+        if (root.left != null){
+           mid += (rob(root.left.left) + rob(root.left.right));
+        }
+        if (root.right != null){
+            mid += (rob(root.right.left) + rob(root.right.right));
+        }
+        return Math.max(mid,rob(root.left)+rob(root.right));
+    }
+    //leetcode337. 打家劫舍 III(leetcode714思想)
+    public int rob3(TreeNode root) {
+        int[] ints = rob4(root);
+        return Math.max(ints[0],ints[1]);
+    }
+    private int[] rob4(TreeNode root){
+        if (root == null) return new int[2];
+        int[] res = new int[2];
+        int[] left = rob4(root.left);
+        int[] right = rob4(root.right);
+
+        res[0] = Math.max(left[0],left[1]) + Math.max(right[0],right[1]);//不偷当前节点，取两个儿子节点和
+        res[1] = left[0] + right[0] + root.val;//偷当前节点，那么必然不偷他的儿子节点
+        return res;
+    }
+
+
     //leetcode 338. 比特位计数
     public int[] countBits(int num) {
         int[] db = new int[num+1];
