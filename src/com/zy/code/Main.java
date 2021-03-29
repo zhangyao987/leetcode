@@ -1900,6 +1900,7 @@ public class Main {
     public int rob3(TreeNode root) {
         int[] ints = rob4(root);
         return Math.max(ints[0],ints[1]);
+
     }
     private int[] rob4(TreeNode root){
         if (root == null) return new int[2];
@@ -2201,6 +2202,27 @@ public class Main {
         cur += maxAreaOfIsland(i,j+1,grid0);
         cur += maxAreaOfIsland(i,j-1,grid0);
         return cur;
+    }
+
+    //leetcode739. 每日温度
+    public int[] dailyTemperatures(int[] T) {
+        /*
+        * index：0 ,1 ,2 ,3 ,4 ,5 ,6 ,7
+        * T:    73,74,75,71,69,72,76,73
+        * res:   1,1 ,4 ,2 ,1 ,1 ,0 ,0
+        * 顺序：  1,2 ,6 ,4 ,3 ,5 ,入栈不走while循环了
+        * 栈内存的是index
+        *
+        * */
+        int[] res = new int[T.length];
+        Stack<Integer> stack = new Stack<>();
+        for (int i = 0; i<T.length; i++){
+            while (!stack.isEmpty() && T[i] > T[stack.peek()]){
+                res[stack.peek()] = i-stack.pop();
+            }
+            stack.push(i);
+        }
+        return res;
     }
 
     //leetcode974. 和可被 K 整除的子数组
