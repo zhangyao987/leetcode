@@ -1062,6 +1062,23 @@ public class Main {
         return db[m-1][n-1];
     }
 
+    //leetcode75. 颜色分类
+    public void sortColors(int[] nums) {
+        int zeroAndOne = -1;//记录01间隙，right倒序记着2的位置
+        int left = 0,right = nums.length-1;
+        while (left<right){
+            if (nums[left] == 0){
+                zeroAndOne++;
+                swap(nums,zeroAndOne,left);
+                left++;
+            }else if (nums[left] == 2){
+                swap(nums,left,right);
+                right--;
+            }else {
+                left++;
+            }
+        }
+    }
 
     //leetcode77组合
     List<List<Integer>> list77 = new ArrayList<>();
