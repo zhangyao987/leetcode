@@ -1132,6 +1132,18 @@ public class Main {
         return list94;
     }
 
+    //leetcode98. 验证二叉搜索树
+    long pre98 = Long.MIN_VALUE;
+    public boolean isValidBST(TreeNode root) {
+       if (root == null) return true;
+
+       if (!isValidBST(root.left)) return false;
+       if (root.val<=pre98) return false;
+       pre98 = root.val;
+       return isValidBST(root.right);
+
+    }
+
     //leetcode103. 二叉树的锯齿形层序遍历
     List<List<Integer>> list103 = new LinkedList<>();
     public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
