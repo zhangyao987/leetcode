@@ -2047,6 +2047,33 @@ public class Main {
         return res;
     }
 
+    //leetcode437. 路径总和 III
+    public int pathSum3(TreeNode root, int sum) {
+        Map<Integer,Integer> map = new HashMap<>();
+        map.put(0,1);
+        return pathSum3(root,map,sum,0);
+    }
+
+    private int pathSum3(TreeNode root,Map<Integer,Integer> map, int sum,int curSum){
+        if (root == null){
+            return 0;
+        }
+        curSum += root.val;
+        int res = 0;
+        res = map.getOrDefault(curSum-sum,0);
+
+        //更新当前前缀和的map
+        map.put(curSum,map.getOrDefault(curSum,0)+1);
+
+        //递归子树
+        res += pathSum3(root.left,map,sum,curSum);
+        res += pathSum3(root.right,map,sum,curSum);
+
+        //去除当前节点的前缀和数量
+        map.put(curSum,map.get(curSum)-1);
+        return res;
+    }
+
     //leetcode 480. 滑动窗口中位数
     public double[] medianSlidingWindow(int[] nums, int k) {
         int n = nums.length;
