@@ -1755,6 +1755,28 @@ public class Main {
         return dp[nums.length];
     }
 
+    //leetcode202. 快乐数
+    public boolean isHappy(int n) {
+        int slow = n;
+        int fast = isHappyNext(n);
+        while (fast != 1 && slow != fast){
+            slow = isHappyNext(slow);
+            fast = isHappyNext(isHappyNext(fast));
+        }
+        return fast == 1;
+    }
+
+    //获取下一个数
+    private int isHappyNext(int n){
+        int res = 0;
+        while (n>0){
+            int d = n%10;
+            n = n/10;
+            res += d*d;
+        }
+        return res;
+    }
+
     //leetcode213. 打家劫舍 II
     public int rob2(int[] nums) {
         if (nums.length == 1){
