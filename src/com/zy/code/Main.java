@@ -1872,6 +1872,18 @@ public class Main {
     }
 
 
+    //leetcode287. 寻找重复数
+    public int findDuplicate(int[] nums) {
+        Map<Integer,Integer> map = new HashMap<>();
+        for (int i = 0;i<nums.length;i++){
+            if (map.containsKey(nums[i])){
+               return nums[i];
+            }
+            map.put(nums[i],0);
+        }
+        return 0;
+    }
+
     //leetcode 289生命游戏mid
     public void gameOfLife(int[][] board) {
         for(int i = 0; i < board.length; i++){
