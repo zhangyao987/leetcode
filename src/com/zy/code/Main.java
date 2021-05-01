@@ -228,7 +228,20 @@ public class Main {
             }
         }
     }
-
+    
+    //牛客  是否是平衡二叉树
+    public boolean IsBalanced_Solution(TreeNode root) {
+        return IsBalanced_Solution1(root) != -1;
+    }
+    private int IsBalanced_Solution1(TreeNode node){
+        if (node == null) return 0;
+        int left = IsBalanced_Solution1(node.left);
+        if (left == -1) return -1;
+        int right = IsBalanced_Solution1(node.right);
+        if (right == -1) return -1;
+        return Math.abs(left - right)>1?-1:Math.max(left,right)+1;
+    }
+    
 
 //    niuke 链表中环的入口
     public ListNode EntryNodeOfLoop(ListNode pHead) {
@@ -2473,9 +2486,41 @@ public class Main {
         return result;
     }
 
+
+    public int[] MySort (int[] arr) {
+        // write code here
+        int length = arr.length;
+        sort(arr,0,length-1);
+        return arr;
+    }
+    private void sort(int[] arr,int start, int end){
+        if (start>end){
+            return;
+        }
+        int i = start, j = end, cur = arr[start];
+        while (i<j){
+            while (cur<=arr[j] && i<j){
+                j--;
+            }
+            while (cur>=arr[i] && i<j){
+                i++;
+            }
+            if (i<j){
+                int z = arr[i];
+                int y = arr[j];
+                arr[i] = y;
+                arr[j] = z;
+            }
+        }
+        arr[start] = arr[i];
+        arr[i] = cur;
+        sort(arr,start,i-1);
+        sort(arr,i+1,end);
+    }
+
     //快速排序
     public static void quickSort(int[] arr, int low, int high) {
-        int i, j, temp, t;
+        int i, j, temp;
         if (low > high) {
             return;
         }
@@ -3136,6 +3181,25 @@ public class Main {
         }
         System.out.println(dp[l-2][h-1]);
     }
+
+    /*蛇形矩阵
+        1 3 6 10
+        2 5 9
+        4 8
+        7
+    */
+    public void shexingjuzhen(){
+        Scanner in = new Scanner(System.in);
+        int n = in.nextInt();
+        for (int i = 0;i<n;i++){
+            for (int j = i+1; j<=n;j++){
+                System.out.print(((j*j+j)/2)-i);
+            }
+            System.out.println("");
+        }
+    }
+
+
 
     public static void main(String[] args) {
         int c[][] = {{1,2,3,4},{5,6,7,8},{9,10,11,12}};
