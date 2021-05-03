@@ -421,7 +421,23 @@ public class Main {
 //        return res;
     }
 
-
+    //leetcode3. 无重复字符的最长子串
+    public int lengthOfLongestSubstring(String s) {
+        int[] all = new int[256];
+        int f = 0,l = -1;
+        int max = 0;
+        while (f<s.length()){
+            if(l+1<s.length()&& all[s.charAt(l+1)]==0){
+                all[s.charAt(l+1)]++;
+                l++;
+                max = Math.max(max,l-f+1);
+            }else{
+                all[s.charAt(f)]--;
+                f++;
+            }
+        }
+        return max;
+    }
 
     //leetcode5最长回文子串
     public String longestPalindrome(String s) {
