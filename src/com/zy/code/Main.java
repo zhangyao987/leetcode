@@ -1867,10 +1867,36 @@ public class Main {
     }
 
     //leetcode215. 数组中的第K个最大元素
+//    public int findKthLargest(int[] nums, int k) {
+//        int len = nums.length;
+//        Arrays.sort(nums);
+//        return nums[len - k];
+//    }
     public int findKthLargest(int[] nums, int k) {
-        int len = nums.length;
-        Arrays.sort(nums);
-        return nums[len - k];
+        int left = 0,right = nums.length-1;
+        int target = nums.length-k;
+        while(true){
+            int index = findKthLargest(nums,left,right);
+            if(target  == index){
+                return nums[index];
+            }else if(target<index){
+                right = index-1;
+            }else{
+                left = index+1;
+            }
+        }
+    }
+    //将比cur小的数遍历到左侧，顺序会打乱
+    private int findKthLargest(int[] nums,int left,int right){
+        int cur = nums[left],i = left;
+        for(int a = left+1;a<=right;a++){
+            if(nums[a]<cur){
+                i++;
+                swap(nums,i,a);
+            }
+        }
+        swap(nums,left,i);
+        return i;
     }
 
     //leetcode230二叉搜索树中第K小的元素 mid
