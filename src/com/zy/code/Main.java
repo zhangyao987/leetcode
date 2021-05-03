@@ -754,6 +754,40 @@ public class Main {
         return head.next;
     }
 
+    //leetcode 25. K 个一组翻转链表
+    public ListNode reverseKGroup(ListNode head, int k) {
+        ListNode dhead = new ListNode(0);
+        dhead.next = head;
+        ListNode pre = dhead;
+        ListNode end = dhead;
+        while(end.next != null){
+            for(int i = 0 ;i<k && end != null;i++) end = end.next;
+            if(end == null) break;
+            ListNode start = pre.next;
+            ListNode next = end.next;
+            end.next = null;
+            pre.next = reverseKGroup(start);
+            start.next = next;
+            pre = start;
+            end = pre;
+        }
+        return dhead.next;
+    }
+    //反转链表
+    private ListNode reverseKGroup(ListNode head){
+        ListNode newhead = null;
+        ListNode pnode = head;
+        ListNode pp = null,next = null;
+        while(pnode != null){
+            if(pnode.next == null) newhead = pnode;
+            next = pnode.next;
+            pnode.next = pp;
+            pp = pnode;
+            pnode = next;
+        }
+        return newhead;
+    }
+
     //leetcode29 两数相除
     public int divide(int dividend, int divisor) {
         int ans = -1;
