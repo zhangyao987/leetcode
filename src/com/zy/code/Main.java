@@ -877,9 +877,6 @@ public class Main {
             }
         }
         return -1;
-
-
-
     }
 
 
@@ -1381,6 +1378,7 @@ public class Main {
 
     //leetcode160. 相交链表
     public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        //当a==null的时候指向b，b==null的时候指向a，那么他们最后到终点的距离是一样的
         ListNode a = headA,b = headB;
         while(a!=b){
             a= a == null?headB:a.next;
@@ -1826,6 +1824,22 @@ public class Main {
             dp[i] = Math.max(dp[i-1],dp[i-2]+nums[i-1]);
         }
         return dp[nums.length];
+    }
+
+    //leetcode199. 二叉树的右视图
+    List<Integer> list199 = new ArrayList<>();
+    public List<Integer> rightSideView(TreeNode root) {
+        rightSideView(root,0);
+        return list199;
+    }
+    private void rightSideView(TreeNode node,int level){
+        if(node == null) return;
+        if(level == list199.size()){
+            list199.add(node.val);
+        }
+        level++;
+        rightSideView(node.right,level);
+        rightSideView(node.left,level);
     }
 
     //leetcode202. 快乐数
