@@ -1379,6 +1379,16 @@ public class Main {
         return res;
     }
 
+    //leetcode160. 相交链表
+    public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        ListNode a = headA,b = headB;
+        while(a!=b){
+            a= a == null?headB:a.next;
+            b= b==null?headA:b.next;
+        }
+        return a;
+    }
+
     //leetcode 171 excel 表序列号  easy
     public int titleToNumber(String s) {
         int res = 0;
