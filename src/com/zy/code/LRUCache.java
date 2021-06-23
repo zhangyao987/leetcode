@@ -89,5 +89,76 @@ public class LRUCache {
         return tailNode;
     }
 
+    /*
+    class node{
+        private int key;
+        private int value;
+        private node pre;
+        private node next;
 
+        public node(int key, int value) {
+            this.key = key;
+            this.value = value;
+        }
+
+        public node() {
+        }
+    }
+
+    private int maxSize;
+    private int size1;
+    private node head1;
+    private node tail1;
+    private Map<Integer,node> map = new HashMap<>();
+
+    public LRUCache(int maxSize) {
+        this.maxSize = maxSize;
+        this.size1 = 0;
+        this.head1 = new node();
+        this.tail1 = new node();
+        head1 = tail1.pre;
+        tail1 = head1.next;
+    }
+
+    public void put(int key,int value){
+        node node = map.get(key);
+        if (node == null){
+            LRUCache.node cur = new node(key, value);
+            map.put(key,cur);
+            addHead(cur);
+            size1++;
+            if (size1>maxSize){
+                LRUCache.node node1 = removeTail();
+                map.remove(node1.key);
+                size1--;
+            }
+        }else {
+            node.value = value;
+            moveHead(node);
+        }
+    }
+
+    private void addHead(node node){
+        node.next = head1.next;
+        node.pre = head1;
+        head1.next.pre = node;
+        head1.next = node;
+    }
+
+    private void removeNode(node node){
+        node.next.pre = node.pre;
+        node.pre.next = node.next;
+    }
+
+    private node removeTail(){
+        node pre = tail1.pre;
+        removeNode(pre);
+        return pre;
+    }
+    private void moveHead(node node){
+        removeNode(node);
+        addHead(node);
+    }
+
+     */
 }

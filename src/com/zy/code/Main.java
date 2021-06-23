@@ -915,6 +915,34 @@ public class Main {
         return res;
     }
 
+    public List<Integer> spiralOrder1(int[][] matrix) {
+        List<Integer> res = new ArrayList<>();
+        int zuo = 0,shang = 0,you = matrix[0].length,xia = matrix.length;
+        while (zuo<you && shang<xia){
+            for (int i = zuo;i<you;i++){
+                res.add(matrix[shang][i]);
+            }
+            for (int j = shang+1;j<xia;j++){
+                res.add(matrix[j][you-1]);
+            }
+            if (shang != xia-1){
+                for (int i = you-2;i>=zuo;i--){
+                    res.add(matrix[xia-1][i]);
+                }
+            }
+            if (zuo != you-1){
+                for (int j = xia-2;j>shang;j--){
+                    res.add(matrix[j][zuo]);
+                }
+            }
+            zuo++;
+            you--;
+            shang++;
+            xia--;
+        }
+        return res;
+    }
+
     //leetcode54. 螺旋矩阵
     public List<Integer> spiralOrder(int[][] matrix) {
         List<Integer> res = new LinkedList<>();
@@ -1058,6 +1086,25 @@ public class Main {
                 list.remove(list.size()-1);
             }
         }
+    }
+
+    public List<List<Integer>> permute1(int[] nums) {
+        List<List<Integer>> res = new ArrayList<>();
+        List<Integer> list = new ArrayList<>();
+        prem(nums,res,list);
+        return res;
+    }
+    private void prem(int[] nums,List<List<Integer>> res,List<Integer> list){
+        if (list.size() == nums.length){
+            res.add(new ArrayList<>(list));
+        }
+        for (int i = 0;i<nums.length;i++){
+            if (list.contains(nums[i])) continue;
+            list.add(nums[i]);
+            prem(nums,res,list);
+            list.remove(list.size()-1);
+        }
+
     }
 
     //leetcode46 全排列
@@ -2617,6 +2664,34 @@ public class Main {
         sort(arr,start,i-1);
         sort(arr,i+1,end);
     }
+
+    /*
+    public void quickSort1(int[] arr,int left,int right){
+        int i = left,j = right,temp = arr[left];
+        if (i>j){
+            return;
+        }
+        while (i<j){
+            while (arr[j]>=temp&&i<j){
+                j--;
+            }
+            while (arr[i]<=temp&&i<j){
+                i++;
+            }
+            if (i<j){
+                int a = arr[i];
+                arr[i] = arr[j];
+                arr[j] = a;
+            }
+        }
+        arr[left] = arr[i];
+        arr[i] = temp;
+
+        quickSort1(arr,left,i-1);
+        quickSort1(arr,i+1,right);
+    }
+
+     */
 
     //快速排序
     public static void quickSort(int[] arr, int low, int high) {
