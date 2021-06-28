@@ -686,6 +686,25 @@ public class Main {
         return true;
     }
 
+    //leetcode 21. 合并两个有序链表
+    public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
+        ListNode dhead = new ListNode(0);
+        ListNode next = dhead;
+        while (l1 != null && l2 != null){
+           if (l1.val>=l2.val){
+               next.next = l2;
+               l2 = l2.next;
+           }else {
+               next.next = l1;
+               l1 = l1.next;
+           }
+            next = next.next;
+        }
+        next.next = l1==null? l2:l1;
+        return dhead.next;
+
+    }
+
     //leetcode22 括号生成 mid
     public List<String> generateParenthesis(int n) {
         List<String> res = new ArrayList<>();
@@ -1227,6 +1246,43 @@ public class Main {
             process78(i+1,nums,list);
             list.remove(list.size()-1);
         }
+    }
+
+    //leetcode92. 反转链表 II
+    public ListNode reverseBetween(ListNode head, int left, int right) {
+        if(head ==null || head.next==null||left>right) {
+            return head;
+        }
+        ListNode dhead = new ListNode(-1);
+        dhead.next = head;
+        ListNode pre = dhead,start = null,end = dhead,next = null;
+        for (int i = 0;i<left-1;i++){
+            pre = pre.next;
+        }
+        start = pre.next;
+        for (int j = 0;j<right-1;j++){
+            end = end.next;
+        }
+        next = end.next;
+        pre.next = null;
+        end.next = null;
+        fanzhuan(start);
+        pre.next = end;
+        start.next = next;
+        return dhead.next;
+    }
+    private ListNode fanzhuan(ListNode head){
+        ListNode pp =null,newhead = null,cur = head,next = null;
+        while (cur != null){
+            if (cur.next == null){
+                newhead = cur;
+            }
+            next = cur.next;
+            cur.next = pp;
+            pp = cur;
+            cur = next;
+        }
+        return newhead;
     }
 
     //leetcode94 二叉树的中序遍历 mid
