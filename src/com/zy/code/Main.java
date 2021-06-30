@@ -1248,6 +1248,32 @@ public class Main {
         }
     }
 
+    //leetcode88. 合并两个有序数组
+    public void merge(int[] nums1, int m, int[] nums2, int n) {
+        int l = 0, r = 0,index = 0;
+        int[] sort = new int[m+n];
+        for (;l<m||r<n;){
+            int cur;
+            if (l==m){
+                cur = nums2[r];
+                r++;
+            }else if (r == n){
+                cur = nums1[l];
+                l++;
+            }else if (nums1[l]<nums2[r]){
+                cur = nums1[l];
+                l++;
+            }else {
+                cur = nums2[r];
+                r++;
+            }
+            sort[l+r-1] = cur;
+        }
+        for (int i = 0;i<m+n;i++){
+            nums1[i] = sort[i];
+        }
+    }
+
     //leetcode92. 反转链表 II
     public ListNode reverseBetween(ListNode head, int left, int right) {
         if(head ==null || head.next==null||left>right) {
