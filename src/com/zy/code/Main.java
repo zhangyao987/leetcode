@@ -421,6 +421,36 @@ public class Main {
 //        return res;
     }
 
+    //2. 两数相加
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        int temp = 0;
+        ListNode dhead = new ListNode(-1);
+        ListNode pp = dhead;
+        while (l1!=null||l2!=null){
+            int cur =0;
+            if (l1==null){
+                cur = l2.val+temp;
+                l2 = l2.next;
+            }else if (l2==null){
+                cur = l1.val+temp;
+                l1 = l1.next;
+            }else {
+                cur = l1.val+l2.val+temp;
+                l1 = l1.next;
+                l2 = l2.next;
+            }
+            temp = cur/10;
+            ListNode c = new ListNode(cur%10);
+            pp.next = c;
+            pp = pp.next;
+        }
+        if (temp == 1){
+            ListNode c = new ListNode(1);
+            pp.next = c;
+        }
+        return dhead.next;
+    }
+
     //leetcode3. 无重复字符的最长子串
     public int lengthOfLongestSubstring(String s) {
         int[] all = new int[256];
