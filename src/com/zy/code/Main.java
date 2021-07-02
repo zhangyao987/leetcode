@@ -2,8 +2,10 @@ package com.zy.code;
 
 
 import javax.sql.rowset.FilteredRowSet;
+import java.awt.*;
 import java.io.*;
 import java.util.*;
+import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class Main {
@@ -2582,6 +2584,22 @@ public class Main {
         cur += maxAreaOfIsland(i,j+1,grid0);
         cur += maxAreaOfIsland(i,j-1,grid0);
         return cur;
+    }
+
+    //leetcode704. 二分查找
+    public int search1(int[] nums, int target) {
+        int left = 0,right = nums.length-1;
+        while (left<=right){
+            int temp = right-left/2;
+            if (target == nums[temp]){
+                return temp;
+            }else if (nums[temp]<target){
+                left = temp+1;
+            }else {
+                right = temp-1;
+            }
+        }
+        return -1;
     }
 
     //leetcode739. 每日温度
