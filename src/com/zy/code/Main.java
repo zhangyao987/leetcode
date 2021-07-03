@@ -200,8 +200,19 @@ public class Main {
 //           System.out.print(ou.get(i));
 //       }
    }
-
-
+    //剑指 Offer 22. 链表中倒数第k个节点
+    public ListNode getKthFromEnd(ListNode head, int k) {
+        ListNode res = head;
+        while (k>0){
+            head = head.next;
+            k--;
+        }
+        while (head != null){
+            head = head.next;
+            res = res.next;
+        }
+        return res;
+    }
 
 
 
@@ -537,6 +548,37 @@ public class Main {
             if (res < Integer.MIN_VALUE/10 || (res == Integer.MIN_VALUE/10&& cur <-8)) return 0;
             res = res*10 + cur;
             x = x /10;
+        }
+        return res;
+    }
+
+    //leetcode8. 字符串转换整数 (atoi)
+    public int myAtoi(String s) {
+        char[] chars = s.toCharArray();
+        int sign = 1,start = 0;
+        while (start<chars.length && chars[start] == ' '){
+            start++;
+        }
+        if (start==chars.length) return 0;
+        if (chars[start] == '-'){
+            sign = -1;
+            start++;
+        }else if (chars[start] == '+'){
+            start++;
+        }
+        int res = 0;
+        while (start<chars.length){
+            if (chars[start] > '9' || chars[start] < '0') {
+                break;
+            }
+            if (res>Integer.MAX_VALUE/10 || (res == Integer.MAX_VALUE/10 && (chars[start]-'0')>Integer.MAX_VALUE%10)){
+                return Integer.MAX_VALUE;
+            }
+            if (res<Integer.MIN_VALUE/10 || (res == Integer.MIN_VALUE/10 && (chars[start]-'0')>-(Integer.MIN_VALUE%10))){
+                return Integer.MIN_VALUE;
+            }
+            res = res*10+(chars[start]-'0')*sign;
+            start++;
         }
         return res;
     }
