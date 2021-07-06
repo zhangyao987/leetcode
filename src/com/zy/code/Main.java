@@ -1551,7 +1551,20 @@ public class Main {
         return res;
     }
 
-
+    //leetcode124. 二叉树中的最大路径和
+    int maxres = Integer.MIN_VALUE;
+    public int maxPathSum(TreeNode root) {
+        //最大路径不是从根节点到叶子结点，而是随意的左到右的一路径
+        maxPathSum1(root);
+        return maxres;
+    }
+    public int maxPathSum1(TreeNode root) {
+        if (root==null) return 0;
+        int left = Math.max(0,maxPathSum1(root.left));
+        int right = Math.max(0,maxPathSum1(root.right));
+        maxres = Math.max(maxres,root.val+left+right);
+        return root.val+Math.max(left,right);
+    }
 
     //leetcoede 128 最长连续序列
     //暴力解法
