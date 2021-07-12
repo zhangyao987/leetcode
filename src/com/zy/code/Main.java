@@ -1347,6 +1347,24 @@ public class Main {
         }
     }
 
+    //leetcode82. 删除排序链表中的重复元素 II
+    public ListNode deleteDuplicates(ListNode head) {
+        ListNode dhead = new ListNode(0);
+        dhead.next = head;
+        ListNode cur = dhead;
+        while (cur.next != null && cur.next.next != null){
+            if (cur.next.val == cur.next.next.val){
+                int x = cur.next.val;
+                while (cur.next != null && cur.next.val == x){
+                    cur.next = cur.next.next;
+                }
+            }else {
+                cur = cur.next;
+            }
+        }
+        return dhead.next;
+    }
+
     //leetcode88. 合并两个有序数组
     public void merge(int[] nums1, int m, int[] nums2, int n) {
         int l = 0, r = 0,index = 0;
