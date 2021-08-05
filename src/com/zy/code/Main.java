@@ -2787,6 +2787,24 @@ public class Main {
         }
         return count;
     }
+    //leetcode1636. 按照频率将数组升序排序
+    public int[] frequencySort(int[] nums) {
+        HashMap<Integer, Integer> map = new HashMap<>();
+        for (int i : nums){
+            map.put(i,map.getOrDefault(i,0)+1);
+        }
+        for (int i = 0;i<nums.length;i++){
+            for (int j = i+1;j<nums.length;j++){
+                if (map.get(nums[i]) > map.get(nums[j])){
+                    swap(nums,i,j);
+                }
+                if (map.get(nums[i]) == map.get(nums[j]) && nums[i]<nums[j]){
+                    swap(nums,i,j);
+                }
+            }
+        }
+        return nums;
+    }
 
     //leetcode最长不重复子串
     public int fff(){
@@ -2941,6 +2959,29 @@ public class Main {
         arr[i] = cur;
         sort(arr,start,i-1);
         sort(arr,i+1,end);
+    }
+
+    public void quicks(int[] arr,int left,int right){
+        int temp = arr[left],i = left,j = right;
+
+        while (i<j){
+            while (arr[j]>= temp && i<j){
+                j--;
+            }
+            while (arr[i]<temp && i<j){
+                i++;
+            }
+            if (i<j){
+                int a = arr[i];
+                arr[i] = arr[j];
+                arr[j] = a;
+            }
+
+        }
+        arr[left] = arr[i];
+        arr[i] = temp;
+        quicks(arr,left,i-1);
+        quicks(arr,i+1,right);
     }
 
     /*
